@@ -1,133 +1,101 @@
+# FarmTo Shippo Carrier for Laravel
 
-# Shippo Laravel Integration
+A Laravel package that integrates the [Shippo API](https://goshippo.com/) into your Laravel application for easy shipping label generation, tracking, and carrier management.
 
-A Laravel package that provides seamless integration with Shippo's shipping API, allowing you to easily work with carriers, shipping rates, and service levels in your Laravel application.
-
----
-
-## Features
-
-- Simple integration with Shippo API  
-- Support for multiple carriers (USPS, DHL, etc.)  
-- Intelligent caching for API responses  
-- Formatting utilities for UI display  
-- Easy configuration  
-
----
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/farmto/shippo-laravel.svg?style=flat-square)](https://packagist.org/packages/farmto/shippo-laravel)
+[![Total Downloads](https://img.shields.io/packagist/dt/farmto/shippo-laravel.svg?style=flat-square)](https://packagist.org/packages/farmto/shippo-laravel)
 
 ## Installation
 
-You can install the package via Composer:
+You can install the package via composer:
 
 ```bash
 composer require farmto/shippo-laravel
 ```
 
-### Configuration
+## Configuration
 
 Publish the configuration file:
 
 ```bash
-php artisan vendor:publish --tag=config
+php artisan vendor:publish --provider="FarmTo\ShippoLaravel\ShippoCarrierServiceProvider"
 ```
 
-This will create a `shippo.php` configuration file in your `config` directory. Update it with your Shippo API key:
+Then update your `.env` file with your Shippo API credentials:
 
-```php
-<?php
-// config/shippo.php
-return [
-    'api_key' => env('SHIPPO_API_KEY', ''),
-    'cache_enabled' => true,
-    'cache_ttl' => 1440, // minutes (24 hours)
-    'default_carriers' => [
-        'usps',
-        'dhl',
-        // Add other carriers you want to use by default
-    ],
-];
 ```
-
-Make sure to add your Shippo API key to your `.env` file:
-
-```env
-SHIPPO_API_KEY=your-api-key-here
+SHIPPO_API_KEY=your_api_key_here
+SHIPPO_API_VERSION=2018-02-08
 ```
-
----
 
 ## Usage
 
-### Basic Usage
-
 ```php
-<?php
-// Get all carriers with their service levels
-$carriers = ShippoCarrier::getCarriers();
+use FarmTo\ShippoLaravel\Facades\ShippoCarrier;
 
-// Get a specific service level by code
-$service = ShippoCarrier::getServiceLevel('usps_priority');
+// Create a shipping label
+$shipment = ShippoCarrier::createShipment([
+    'address_from' => [
+        'name' => 'John Doe',
+        'street1' => '123 Main St',
+        'city' => 'San Francisco',
+        'state' => 'CA',
+        'zip' => '94105',
+        'country' => 'US',
+    ],
+    'address_to' => [
+        'name' => 'Jane Doe',
+        'street1' => '456 Oak St',
+        'city' => 'New York',
+        'state' => 'NY',
+        'zip' => '10001',
+        'country' => 'US',
+    ],
+    'parcels' => [
+        [
+            'length' => 10,
+            'width' => 8,
+            'height' => 4,
+            'distance_unit' => 'in',
+            'weight' => 2,
+            'mass_unit' => 'lb',
+        ],
+    ],
+]);
 
-// Format carriers and service levels for a select dropdown
-$options = ShippoCarrier::getFormattedForSelect('carrier');
+// Get available shipping rates
+$rates = ShippoCarrier::getShipmentRates($shipment['object_id']);
+
+// Purchase a label
+$transaction = ShippoCarrier::purchaseShippingLabel($rates[0]['object_id']);
 ```
 
-### Using with Forms
+## Troubleshooting
 
-**In your controller:**
+If you encounter the error "Class 'FarmTo\ShippoLaravels\ShippoCarriersServiceProvider' not found", there might be a namespace discrepancy. Make sure your service provider uses the correct namespace as defined in your composer.json file.
 
-```php
-<?php
-public function create()
-{
-    $shippingOptions = ShippoCarrier::getFormattedForSelect('type');
-    return view('checkout.shipping', compact('shippingOptions'));
+### For service provider issues:
+
+Check that your [composer.json](composer.json) has the correct PSR-4 autoloading configuration:
+
+```json
+"autoload": {
+    "psr-4": {
+        "FarmTo\\ShippoLaravel\\": "src/"
+    }
 }
 ```
 
-**In your Blade template:**
+Then run:
 
-```blade
-<select name="shipping_method">
-    @foreach($shippingOptions as $group => $options)
-        <optgroup label="{{ $group }}">
-            @foreach($options as $value => $label)
-                <option value="{{ $value }}">{{ $label }}</option>
-            @endforeach
-        </optgroup>
-    @endforeach
-</select>
+```bash
+composer dump-autoload
 ```
-
----
-
-## Clearing Cache
-
-```php
-<?php
-// Clear the carrier cache
-ShippoCarrier::clearCache();
-```
-
----
-
-## Available Methods
-
-| Method                                   | Description                                         |
-|------------------------------------------|-----------------------------------------------------|
-| `getCarriers($carriers = null, $forceRefresh = false)` | Get all carriers with their service levels         |
-| `getServiceLevel($serviceCode)`          | Get a specific service level by code               |
-| `clearCache()`                           | Clear the carrier cache                            |
-| `getFormattedForSelect($groupBy = 'carrier')` | Format carriers for select dropdowns         |
-
----
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
----
 
 ## License
 
-The MIT License (MIT). Please see the [LICENSE](LICENSE) file for more information.
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+
+## Credits
+
+- [Christian Martin Cabucos](https://github.com/christianmartincabucos)
