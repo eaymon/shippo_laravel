@@ -58,10 +58,15 @@ class ShippoCarrier
     {
         // Get carrier accounts
         try {
-            $carrierAccounts = Shippo_CarrierAccount::all([
-                'carrier' => $carriers,
-                'service_levels' => true
-            ]);
+            $carrierAccounts = array();
+
+            foreach ($carriers as $carrier) {
+                $carrierAccounts = Shippo_CarrierAccount::all([
+                    'carrier' => $carrier,
+                    'service_levels' => true
+                ]);
+            }
+            
             
             // Process and format the returned data
             $formattedResults = [];
