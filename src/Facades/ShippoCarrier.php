@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static bool clearCache()
  * @method static array getFormattedForSelect(string $groupBy = 'carrier')
  * 
- * @see \FarmTo\ShippoCarriers\ShippoCarrier
+ * @see \FarmTo\ShippoLaravel\ShippoCarrier
  */
 class ShippoCarrier extends Facade
 {
