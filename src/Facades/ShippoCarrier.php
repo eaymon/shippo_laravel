@@ -1,6 +1,6 @@
 <?php
 
-namespace FarmTo\ShippoCarriers\Facades;
+namespace FarmTo\ShippoLaravel\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
@@ -21,6 +21,6 @@ class ShippoCarrier extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'shippo-carrier';
+        return 'shippo-laravel';
     }
 }
