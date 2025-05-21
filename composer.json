@@ -5,33 +5,32 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Christian Mafrtin Cabucos",
+            "name": "Christian Martin Cabucos",
             "email": "christianmartincabucos@gmail.com"
         }
     ],
     "require": {
         "php": "^8.0",
-        "illuminate/support": "*",
+        "illuminate/support": "^8.0",
         "shippo/shippo-php": "^1.4"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.0",
-        "orchestra/testbench": "^6.0|^7.0|^8.0"
+        "orchestra/testbench": "^6.0, ^7.0, ^8.0"
     },
     "autoload": {
         "psr-4": {
-            "FarmTo\\ShippoCarriers\\": "src/"
+            "FarmTo\\ShippoLaravel\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "FarmTo\\ShippoCarriers\\ShippoCarriersServiceProvider"
+                "FarmTo\\ShippoCarrier\\ShippoCarrierServiceProvider"
             ],
             "aliases": {
-                "ShippoCarrier": "FarmTo\\ShippoCarriers\\Facades\\ShippoCarrier"
+                "ShippoCarrier": "FarmTo\\ShippoCarrier\\Facades\\ShippoCarrier"
             }
         }
-    },
-    "minimum-stability": "stable"
+    }
 }
