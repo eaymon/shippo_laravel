@@ -12,7 +12,7 @@
     "require": {
         "php": "^8.0",
         "illuminate/support": "^8.0",
-        "shippo/shippo-php": "^1.4"
+        "shippo/shippo-php": "^2.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.0",
