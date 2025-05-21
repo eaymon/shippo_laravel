@@ -4,7 +4,7 @@ namespace FarmTo\ShippoLaravel;
 
 use Illuminate\Support\ServiceProvider;
 
-class ShippoCarriersServiceProvider extends ServiceProvider
+class ShippoCarrierServiceProvider extends ServiceProvider
 {
     /**
      * Register services.
