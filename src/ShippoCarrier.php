@@ -38,7 +38,8 @@ class ShippoCarrier
             return Cache::get($cacheKey);
         }
         
-        $carriers = $carriers ?? config('shippo.default_carriers', []);
+        $checkCarriers = $carriers ?? config('shippo.default_carriers', []);
+        $carriers = $this->isCarrierArray($checkCarriers);
         $serviceLevels = $this->fetchCarrierServiceLevels($carriers);
         
         if ($this->cacheEnabled) {
@@ -47,7 +48,17 @@ class ShippoCarrier
         
         return $serviceLevels;
     }
-    
+    protected function isCarrierArray($carriers)
+    {
+        if (gettype($carriers) == 'string') {
+            $carriers = [$carriers];
+        } elseif (gettype($carriers) == 'array') {
+            $carriers = array_values(array_unique($carriers));
+        } else {
+            $carriers = config('shippo.default_carriers', []);
+        }
+        return $carriers;
+    }
     /**
      * Fetch carrier accounts with their service levels
      * 
@@ -58,6 +69,7 @@ class ShippoCarrier
     {
         // Get carrier accounts
         try {
+            
             $allResults = array();
 
             foreach ($carriers as $carrier) {
@@ -73,13 +85,10 @@ class ShippoCarrier
                 }
             }
             
-            $carrierAccounts = (object) ['results' => $allResults];
-            
-            
             // Process and format the returned data
             $formattedResults = [];
             
-            foreach ($carrierAccounts->results as $carrierAccount) {
+            foreach ($allResults as $carrierAccount) {
                 $carrierId = $carrierAccount->carrier;
                 $carrierName = $this->formatCarrierName($carrierId);
                 
