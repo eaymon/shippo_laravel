@@ -11,12 +11,22 @@ class ShippoCarrierServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->mergeConfigFrom(
-            __DIR__.'/../config/shippo.php', 'shippo'
-        );
-
-        $this->app->singleton('shippo-laravel', function ($app) {
+        $this->app->bind('shippo-laravel', function ($app) {
             return new ShippoCarrier(
+                config('shippo.api_key'),
+                config('shippo.cache_enabled', true),
+                config('shippo.cache_ttl', 1440)
+            );
+        });
+
+        $this->app->bind('shippo-shipment', function ($app) {
+            return new ShippoShipment(
+                config('shippo.api_key')
+            );
+        });
+
+        $this->app->bind('shippo-rates', function ($app) {
+            return new ShippoRates(
                 config('shippo.api_key'),
                 config('shippo.cache_enabled', true),
                 config('shippo.cache_ttl', 1440)
