@@ -3,6 +3,7 @@
 namespace FarmTo\ShippoLaravel;
 
 use Illuminate\Support\ServiceProvider;
+use ShippoTransaction;
 
 class ShippoCarrierServiceProvider extends ServiceProvider
 {
@@ -30,6 +31,12 @@ class ShippoCarrierServiceProvider extends ServiceProvider
                 config('shippo.api_key'),
                 config('shippo.cache_enabled', true),
                 config('shippo.cache_ttl', 1440)
+            );
+        });
+
+        $this->app->bind('shippo-transaction', function ($app) {
+            return new ShippoTransaction(
+                config('shippo.api_key'),
             );
         });
     }
