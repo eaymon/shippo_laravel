@@ -1,5 +1,6 @@
 <?php
 
+use Shippo_Transaction as Transaction;
 class ShippoTransaction
 {
     public function purchaseLabel($rateId)
@@ -9,7 +10,7 @@ class ShippoTransaction
                 throw new Exception('Rate ID cannot be empty');
             }
 
-            $transaction = Shippo_Transaction::create([
+            $transaction = Transaction::create([
                 'rate' => $rateId,
                 'label_file_type' => 'PDF',
                 'async' => false,
