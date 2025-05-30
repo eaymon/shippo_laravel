@@ -228,7 +228,33 @@ class ShippoRates
             return $carry;
         });
     }
-
+    /**
+     * Get preview shipping rates without creating a shipment
+     *
+     * @param array $fromAddress The sender's address
+     * @param array $toAddress The recipient's address
+     * @param array $parcel The parcel details
+     * @param array $options Additional options for the shipment
+     * @return object The shipping rates object
+     * @throws Exception
+     */
+    public function getPreviewShippingRates(
+        array $fromAddress,
+        array $toAddress,
+        array $parcel,
+        array $options = []
+    ) {
+        $shipmentRates = Shipment::get_shipping_rates([
+            $fromAddress,
+            $toAddress,
+            $parcel,
+            $options
+        ]);
+        if (isset($shipmentRates->object_state) && $shipmentRates->object_state === 'error') {
+            throw new Exception('Error retrieving shipping rates: ' . $shipmentRates->messages[0]->text);
+        }
+        return $shipmentRates;
+    }
     /**
      * Clear the rates cache
      *
