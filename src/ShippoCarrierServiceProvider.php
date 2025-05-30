@@ -3,7 +3,6 @@
 namespace FarmTo\ShippoLaravel;
 
 use Illuminate\Support\ServiceProvider;
-use ShippoTransaction;
 
 class ShippoCarrierServiceProvider extends ServiceProvider
 {

@@ -1,6 +1,11 @@
 <?php
 
+namespace FarmTo\ShippoLaravel;
+
+use Exception;
+use Shippo;
 use Shippo_Transaction as Transaction;
+
 class ShippoTransaction
 {
     protected $apiKey;
