@@ -3,6 +3,16 @@
 use Shippo_Transaction as Transaction;
 class ShippoTransaction
 {
+    protected $apiKey;
+
+    public function __construct($apiKey = null)
+    {
+        $this->apiKey = $apiKey;
+
+        if ($this->apiKey) {
+            Shippo::setApiKey($this->apiKey);
+        }
+    }
     public function purchaseLabel($rateId)
     {
         try {
