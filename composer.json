@@ -1,5 +1,5 @@
 {
-    "name": "farm-to-you/shippo-laravel",
+    "name": "farmtoyou/shippo-laravel",
     "description": "Laravel integration for Shippo Api",
     "type": "library",
     "license": "MIT",
