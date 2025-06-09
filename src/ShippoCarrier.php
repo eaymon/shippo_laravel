@@ -1,6 +1,6 @@
 <?php
 
-namespace FarmTo\ShippoLaravel;
+namespace FarmToYou\ShippoLaravel;
 
 use Illuminate\Support\Facades\Cache;
 use Shippo;

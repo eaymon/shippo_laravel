@@ -1,6 +1,6 @@
 <?php
 
-namespace FarmTo\ShippoLaravel;
+namespace FarmToYou\ShippoLaravel;
 
 use Shippo;
 use Shippo_Shipment as Shipment;

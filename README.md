@@ -1,16 +1,16 @@
-# FarmTo Shippo Carrier for Laravel
+# FarmToYou Shippo Carrier for Laravel
 
 A Laravel package that integrates the [Shippo API](https://goshippo.com/) into your Laravel application for easy shipping label generation, tracking, and carrier management.
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/farmto/shippo-laravel.svg?style=flat-square)](https://packagist.org/packages/farmto/shippo-laravel)
-[![Total Downloads](https://img.shields.io/packagist/dt/farmto/shippo-laravel.svg?style=flat-square)](https://packagist.org/packages/farmto/shippo-laravel)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/FarmToYou/shippo-laravel.svg?style=flat-square)](https://packagist.org/packages/FarmToYou/shippo-laravel)
+[![Total Downloads](https://img.shields.io/packagist/dt/FarmToYou/shippo-laravel.svg?style=flat-square)](https://packagist.org/packages/FarmToYou/shippo-laravel)
 
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require farmto/shippo-laravel
+composer require FarmToYou/shippo-laravel
 ```
 
 ## Configuration
@@ -18,7 +18,7 @@ composer require farmto/shippo-laravel
 Publish the configuration file:
 
 ```bash
-php artisan vendor:publish --provider="FarmTo\ShippoLaravel\ShippoCarrierServiceProvider"
+php artisan vendor:publish --provider="FarmToYou\ShippoLaravel\ShippoCarrierServiceProvider"
 ```
 
 Then update your `.env` file with your Shippo API credentials:
@@ -31,7 +31,7 @@ SHIPPO_API_VERSION=2018-02-08
 ## Usage
 
 ```php
-use FarmTo\ShippoLaravel\Facades\ShippoCarrier;
+use FarmToYou\ShippoLaravel\Facades\ShippoCarrier;
 
 // Create a shipping label
 $shipment = ShippoCarrier::createShipment([
@@ -72,7 +72,7 @@ $transaction = ShippoCarrier::purchaseShippingLabel($rates[0]['object_id']);
 
 ## Troubleshooting
 
-If you encounter the error "Class 'FarmTo\ShippoLaravels\ShippoCarriersServiceProvider' not found", there might be a namespace discrepancy. Make sure your service provider uses the correct namespace as defined in your composer.json file.
+If you encounter the error "Class 'FarmToYou\ShippoLaravels\ShippoCarriersServiceProvider' not found", there might be a namespace discrepancy. Make sure your service provider uses the correct namespace as defined in your composer.json file.
 
 ### For service provider issues:
 
@@ -81,7 +81,7 @@ Check that your [composer.json](composer.json) has the correct PSR-4 autoloading
 ```json
 "autoload": {
     "psr-4": {
-        "FarmTo\\ShippoLaravel\\": "src/"
+        "FarmToYou\\ShippoLaravel\\": "src/"
     }
 }
 ```

@@ -1,5 +1,5 @@
 {
-    "name": "farmto/shippo-laravel",
+    "name": "FarmToYou/shippo-laravel",
     "description": "Laravel integration for Shippo Api",
     "type": "library",
     "license": "MIT",
@@ -20,16 +20,16 @@
     },
     "autoload": {
         "psr-4": {
-            "FarmTo\\ShippoLaravel\\": "src/"
+            "FarmToYou\\ShippoLaravel\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "FarmTo\\ShippoLaravel\\ShippoCarrierServiceProvider"
+                "FarmToYou\\ShippoLaravel\\ShippoCarrierServiceProvider"
             ],
             "aliases": {
-                "ShippoCarrier": "FarmTo\\ShippoLaravel\\Facades\\ShippoCarrier"
+                "ShippoCarrier": "FarmToYou\\ShippoLaravel\\Facades\\ShippoCarrier"
             }
         }
     }

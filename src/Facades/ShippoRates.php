@@ -1,6 +1,6 @@
 <?php
 
-namespace FarmTo\ShippoLaravel\Facades;
+namespace FarmToYou\ShippoLaravel\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static object|null getFastestRate(array $rates, array $filters = [])
  * @method static bool clearCache()
  * 
- * @see \FarmTo\ShippoLaravel\ShippoRates
+ * @see \FarmToYou\ShippoLaravel\ShippoRates
  */
 class ShippoRates extends Facade
 {

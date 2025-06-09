@@ -1,6 +1,6 @@
 <?php
 
-namespace FarmTo\ShippoLaravel\Facades;
+namespace FarmToYou\ShippoLaravel\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static bool clearCache()
  * @method static array getFormattedForSelect(string $groupBy = 'carrier')
  * 
- * @see \FarmTo\ShippoLaravel\ShippoCarrier
+ * @see \FarmToYou\ShippoLaravel\ShippoCarrier
  */
 class ShippoCarrier extends Facade
 {

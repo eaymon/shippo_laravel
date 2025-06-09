@@ -1,6 +1,6 @@
 <?php
 
-namespace FarmTo\ShippoLaravel\Facades;
+namespace FarmToYou\ShippoLaravel\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static array getAllTransactions(array $filters = [])
  * @method static bool cancelTransaction(string $transactionId)
  *
- * @see \FarmTo\ShippoLaravel\ShippoTransaction
+ * @see \FarmToYou\ShippoLaravel\ShippoTransaction
  */
 class ShippoTransaction extends Facade
 {

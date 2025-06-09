@@ -1,6 +1,6 @@
 <?php
 
-namespace FarmTo\ShippoLaravel\Facades;
+namespace FarmToYou\ShippoLaravel\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static object createShipment(array $fromAddress, array $toAddress, array $parcel, array $options = [])
  * @method static object purchaseLabel(string $rateId)
  * 
- * @see \FarmTo\ShippoLaravel\ShippoShipment
+ * @see \FarmToYou\ShippoLaravel\ShippoShipment
  */
 class ShippoShipment extends Facade
 {
