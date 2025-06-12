@@ -24,13 +24,58 @@ class ShippoCarrier
     }
     
     /**
+     * Get carrier accounts without service levels
+     *
+     * @param array|null $carriers Array of carrier codes to filter by
+     * @param bool $forceRefresh Force refresh the cache
+     * @return object Collection of carriers
+     */
+    public function getCarriersOnly($carriers = null, $forceRefresh = false)
+    {
+        $cacheKey = 'shippo_carriers_only_' . md5(json_encode($carriers));
+        
+        if ($this->cacheEnabled && !$forceRefresh && Cache::has($cacheKey)) {
+            return Cache::get($cacheKey);
+        }
+        
+        $checkCarriers = $carriers ?? config('shippo.default_carriers', []);
+        $carriers = $this->isCarrierArray($checkCarriers);
+        
+        try {
+            $allResults = [];
+            
+            foreach ($carriers as $carrier) {
+                $response = Shippo_CarrierAccount::all([
+                    'carrier' => $carrier,
+                    'service_levels' => false
+                ]);
+                
+                if (isset($response->results) && is_array($response->results)) {
+                    foreach ($response->results as $result) {
+                        $allResults[] = $result;
+                    }
+                }
+            }
+            
+            $result = (object) ['results' => $allResults];
+            
+            if ($this->cacheEnabled) {
+                Cache::put($cacheKey, $result, $this->cacheTtl * 60);
+            }
+            
+            return $result;
+        } catch (\Exception $e) {
+            return (object) ['error' => 'Unable to fetch carriers: ' . $e->getMessage()];
+        }
+    }
+    /**
      * Get all carriers with their service levels
      *
      * @param array|null $carriers Array of carrier codes to filter by
      * @param bool $forceRefresh Force refresh the cache
      * @return object Collection of carriers with service levels
      */
-    public function getCarriers($carriers = null, $forceRefresh = false)
+    public function getCarriersServiceLevels($carriers = null, $forceRefresh = false)
     {
         $cacheKey = 'shippo_carriers_' . md5(json_encode($carriers));
         
