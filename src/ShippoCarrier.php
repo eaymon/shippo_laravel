@@ -256,7 +256,7 @@ class ShippoCarrier
      */
     public function getServiceLevel($serviceCode)
     {
-        $allCarriers = $this->getCarriers();
+        $allCarriers = $this->getCarriersServiceLevels();
         
         foreach ($allCarriers->results as $carrier) {
             foreach ($carrier->service_levels as $service) {
@@ -296,7 +296,7 @@ class ShippoCarrier
      */
     public function getFormattedForSelect($groupBy = 'carrier')
     {
-        $carriers = $this->getCarriers();
+        $carriers = $this->getCarriersServiceLevels();
         $options = [];
         
         if ($groupBy === 'carrier') {
