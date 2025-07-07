@@ -6,6 +6,7 @@ use Shippo;
 use Shippo_Shipment as Shipment;
 use Shippo_Transaction as Transaction;
 use Exception;
+use Shippo_Shipment;
 
 class ShippoShipment
 {
@@ -68,6 +69,22 @@ class ShippoShipment
             ]);
         } catch (Exception $e) {
             throw new Exception('Error purchasing label: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Retrieve a shipment from Shippo by ID
+     *
+     * @param string $shipmentId The shipment ID to retrieve
+     * @return object The shipment object
+     * @throws Exception
+     */
+    public function getShipment($shipmentId)
+    {
+        try {
+            return Shippo_Shipment::retrieve($shipmentId, $this->apiKey);
+        } catch (Exception $e) {
+            throw new Exception('Error retrieving shipment: ' . $e->getMessage());
         }
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @method static object createShipment(array $fromAddress, array $toAddress, array $parcel, array $options = [])
  * @method static object purchaseLabel(string $rateId)
+ * @method static object getShipment(string $shipmentId)
  * 
  * @see \FarmToYou\ShippoLaravel\ShippoShipment
  */
