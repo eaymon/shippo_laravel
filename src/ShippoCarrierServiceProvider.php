@@ -38,6 +38,13 @@ class ShippoCarrierServiceProvider extends ServiceProvider
                 config('shippo.api_key'),
             );
         });
+        $this->app->bind('shippo-address', function ($app) {
+            return new ShippoAddress(
+                config('shippo.api_key'),
+                config('shippo.cache_enabled', true),
+                config('shippo.cache_ttl', 1440)
+            );
+        });
     }
 
     /**
