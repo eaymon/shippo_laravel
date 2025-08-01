@@ -71,7 +71,24 @@ class ShippoShipment
             throw new Exception('Error purchasing label: ' . $e->getMessage());
         }
     }
+    public function purchaseLabelWithOptions($options = [])
+    {
+        try {
+            $params = $options ?? [
+                'label_file_type' => 'PDF',
+                'async' => false
+            ];
 
+            // Merge additional options
+            if (!empty($options)) {
+                $params = array_merge($params);
+            }
+
+            return Transaction::create($params);
+        } catch (Exception $e) {
+            throw new Exception('Error purchasing label with options: ' . $e->getMessage());
+        }
+    }
     /**
      * Retrieve a shipment from Shippo by ID
      *
